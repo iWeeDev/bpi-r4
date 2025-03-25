@@ -1,51 +1,52 @@
-Para deshabilitar la detección del PIN en un módem LTE en OpenWRT, como se menciona en la respuesta del foro, puedes hacerlo enviando comandos AT al módem. En este caso, el comando para deshabilitar la detección del PIN es:
+To disable the SIM PIN detection on an LTE modem in OpenWRT you can do it by sending AT commands to the modem. In this case, the command to disable PIN detection is:
 
 ```bash
 AT+QSIMDET=0,0
 ```
 
-Esto se puede hacer desde la terminal de OpenWRT o usando una interfaz que permita enviar comandos AT, como **ModemManager** o herramientas como **Minicom** o **Screen**.
+This can be done from the OpenWRT terminal or using an interface that allows you to send AT commands, such as **ModemManager** or tools like **Minicom** or **Screen**.
 
-### Pasos para hacerlo:
-1. **Accede al módem a través de ModemManager o usando un terminal**.
-   
-   Si estás usando **ModemManager**:
-   - Asegúrate de que tu módem esté correctamente detectado y que **ModemManager** lo esté manejando.
-   - Puedes usar el comando `mmcli` para interactuar con el módem y enviar comandos AT.
+### Steps to do it:
 
-2. **Enviar el comando AT para deshabilitar la detección del PIN**:
-   - Puedes enviar el comando AT desde el terminal:
+1. **Access the modem via ModemManager or using a terminal**.
+
+   If you are using **ModemManager**:
+   - Ensure your modem is properly detected, and **ModemManager** is managing it.
+   - You can use the `mmcli` command to interact with the modem and send AT commands.
+
+2. **Send the AT command to disable PIN detection**:
+   - You can send the AT command from the terminal:
      ```bash
      echo -e "AT+QSIMDET=0,0" > /dev/ttyUSB0
      ```
-     (Sustituye `/dev/ttyUSB0` por el nombre correcto del dispositivo de tu módem, dependiendo de cómo esté detectado en tu sistema).
+     (Replace `/dev/ttyUSB0` with the correct device name for your modem, depending on how it’s detected in your system).
 
-3. **Reiniciar el módem (opcional)**:
-   - El segundo comando mencionado en la respuesta es para reiniciar el módem:
+3. **Restart the modem (optional)**:
+   - The second command mentioned in the response is to restart the modem:
      ```bash
      AT+CFUN=1,1
      ```
 
-   Al enviar este comando, reiniciarás el módem. Puedes hacer esto de la misma manera a través del dispositivo serial correspondiente.
+   Sending this command will restart the modem. You can do this in the same way via the corresponding serial device.
 
-### Alternativa con **ModemManager**:
-Si estás usando **ModemManager** y ya tienes tu módem detectado, también puedes enviar los comandos AT de forma sencilla:
+### Alternative with **ModemManager**:
+If you are using **ModemManager** and your modem is already detected, you can also send AT commands easily:
 
-1. Asegúrate de que **ModemManager** esté funcionando y detectando tu módem correctamente.
+1. Ensure that **ModemManager** is working and detecting your modem properly.
    
-2. Usa **mmcli** para interactuar con el módem. Primero, lista los dispositivos conectados:
+2. Use **mmcli** to interact with the modem. First, list the connected devices:
    ```bash
    mmcli -L
    ```
 
-   Luego, para enviar comandos AT, utiliza:
+   Then, to send the AT commands, use:
    ```bash
-   mmcli -m [ID del módem] --command="AT+QSIMDET=0,0"
+   mmcli -m [modem ID] --command="AT+QSIMDET=0,0"
    ```
 
-   Si necesitas reiniciar el módem después:
+   If you need to restart the modem afterward:
    ```bash
-   mmcli -m [ID del módem] --command="AT+CFUN=1,1"
+   mmcli -m [modem ID] --command="AT+CFUN=1,1"
    ```
 
-De esta forma, deberías poder deshabilitar la detección del PIN y reiniciar el módem para continuar con la configuración.
+This way, you should be able to disable the PIN detection and restart the modem to continue with the setup.
