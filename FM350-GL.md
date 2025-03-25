@@ -1,11 +1,9 @@
-Aquí tienes el contenido del post convertido a un formato Markdown:
-
 ---
 
 # FM350-GL and BE14 finally works on BPI-R4
 
-**Autor:** OtakuNekoP (Leo Xu)  
-**Fecha:** October 5, 2024, 11:16am
+**Author:** OtakuNekoP (Leo Xu)  
+**Date:** October 5, 2024, 11:16am
 
 Since the BE14 233 fw and patch had been pushed to OpenWrt last week, after some time of fiddling around I managed to get the FM350-GL and BE14 working on the BPI-R4.
 
