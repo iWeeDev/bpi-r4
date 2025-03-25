@@ -1,63 +1,63 @@
-Configurar el **PHY combinado USB/PCIe** no suele ser algo que hagas directamente de manera manual como usuario común, ya que generalmente se maneja automáticamente a través del sistema operativo y el **firmware** de la placa base. Sin embargo, es posible que en algunas placas como la **Banana Pi BPI-R4** sea necesario realizar ciertos ajustes en el **software**, el **firmware** o las **configuraciones del sistema** para que el **PHY** funcione correctamente con el dispositivo o puerto que estás utilizando.
+Configuring the **combined USB/PCIe PHY** is not typically something you do manually as an average user, as it is usually handled automatically by the operating system and the motherboard's **firmware**. However, on some boards like the **Banana Pi BPI-R4**, you may need to make some adjustments to the **software**, **firmware**, or **system configurations** for the **PHY** to work correctly with the device or port you are using.
 
-Aquí te doy una idea general de cómo podrías configurar o asegurarte de que el **PHY** funcione correctamente:
+Here is a general idea of how you could configure or ensure that the **PHY** works correctly:
 
-### 1. **Asegúrate de que el firmware esté actualizado**
-- Muchas veces, las configuraciones del **PHY** están integradas en el firmware del dispositivo, que es el software que se ejecuta cuando el sistema se enciende, antes de que el sistema operativo se cargue.
-- Es importante asegurarte de que el **firmware** esté actualizado, ya que las actualizaciones pueden incluir mejoras o correcciones para el manejo de puertos como **USB** y **PCIe**.
+### 1. **Ensure that the firmware is up to date**
+- Often, **PHY** configurations are integrated into the device's firmware, which is the software that runs when the system powers up, before the operating system loads.
+- It is important to ensure that the **firmware** is up to date, as updates can include improvements or fixes for managing ports like **USB** and **PCIe**.
 
-Para **actualizar el firmware** de tu placa, consulta la documentación oficial de **Banana Pi** o cualquier actualización de firmware disponible en el repositorio oficial de **OpenWrt** o la distribución que estés usando. Algunas placas permiten actualizaciones de firmware a través de archivos en formato **.bin** o comandos específicos.
+To **update the firmware** of your board, consult the official documentation of **Banana Pi** or any firmware updates available in the official **OpenWrt** repository or the distribution you're using. Some boards allow firmware updates via **.bin** files or specific commands.
 
-### 2. **Configuración en el sistema operativo (OpenWrt o Linux)**
-- En el sistema operativo, como **OpenWrt** o una distribución de **Linux**, los controladores del **PHY** deben ser cargados correctamente para que los dispositivos USB o PCIe funcionen correctamente.
-- Para verificar si el **PHY** y los puertos están correctamente configurados, puedes hacer uso de **dmesg** para ver los mensajes del sistema que indican si los controladores del **PHY** se cargaron correctamente.
+### 2. **Operating system configuration (OpenWrt or Linux)**
+- In the operating system, such as **OpenWrt** or a **Linux** distribution, the **PHY** drivers need to be loaded correctly for **USB** or **PCIe** devices to work as expected.
+- To verify that the **PHY** and ports are configured properly, you can use **dmesg** to see system messages that indicate if the **PHY** drivers were loaded correctly.
 
-   Puedes usar el siguiente comando para ver los mensajes del sistema relacionados con **USB** o **PCIe**:
+   You can use the following commands to check system messages related to **USB** or **PCIe**:
    ```bash
    dmesg | grep -i usb
    dmesg | grep -i pcie
    ```
-   Esto te mostrará información sobre los controladores y las interfaces que se están cargando para esos dispositivos.
+   This will show information about the drivers and interfaces that are being loaded for those devices.
 
-### 3. **Verifica la configuración de DTS (Device Tree)**
-- Las placas como la **Banana Pi BPI-R4** a menudo tienen configuraciones **Device Tree (DTS)**, que son archivos que le dicen al sistema operativo cómo configurar los diferentes componentes de hardware.
-- En algunos casos, podrías necesitar modificar estos archivos para especificar si deseas usar un puerto **USB** o un puerto **PCIe** a través del mismo conector, o incluso activar características específicas del **PHY**.
+### 3. **Check the Device Tree (DTS) configuration**
+- Boards like the **Banana Pi BPI-R4** often have **Device Tree (DTS)** configurations, which are files that tell the operating system how to configure various hardware components.
+- In some cases, you may need to modify these files to specify whether you want to use a **USB** port or a **PCIe** port through the same connector or even activate specific features of the **PHY**.
 
-Por ejemplo, en **Linux** y **OpenWrt**, la configuración de **Device Tree** se encuentra generalmente en los archivos de configuración dentro de **/boot/dtbs/** o en el directorio del kernel. Para ver si se está configurando el **PHY** correctamente, podrías tener que editar estos archivos, aunque esto es avanzado y requiere un buen conocimiento del sistema.
+For example, in **Linux** and **OpenWrt**, the **Device Tree** configuration is generally found in the configuration files inside **/boot/dtbs/** or in the kernel directory. To check if the **PHY** is configured correctly, you may need to edit these files, though this is advanced and requires a good understanding of the system.
 
-### 4. **Revisar módulos y controladores cargados**
-- En algunos casos, los módulos de **Linux** o los controladores de **OpenWrt** para **USB** y **PCIe** deben estar correctamente instalados para que el **PHY** funcione como se espera.
-- Para verificar qué módulos están cargados, puedes usar los siguientes comandos:
-
-   ```bash
-   lsmod  # Para ver los módulos cargados en el kernel.
-   lspci  # Para ver los dispositivos PCIe conectados.
-   ```
-
-   Si tu dispositivo **USB** o **PCIe** no aparece, puede que sea necesario cargar un módulo específico con el siguiente comando:
+### 4. **Check loaded modules and drivers**
+- In some cases, **Linux** modules or **OpenWrt** drivers for **USB** and **PCIe** must be correctly installed for the **PHY** to work as expected.
+- To check which modules are loaded, you can use the following commands:
 
    ```bash
-   modprobe <nombre-del-módulo>
+   lsmod  # To view the loaded kernel modules.
+   lspci  # To see connected PCIe devices.
    ```
 
-### 5. **Configurar el puerto a través de uBoot o configuración de arranque**
-- Algunas veces, la configuración de cómo el puerto **M.2** se usa (USB o PCIe) se define en el **bootloader** o en la configuración de arranque (como **uBoot**).
-- Si tienes acceso al **uBoot**, puede que necesites configurar los parámetros del puerto para que se utilice correctamente como **PCIe** o **USB**. Esto es más avanzado y depende del modelo y configuración de la placa.
+   If your **USB** or **PCIe** device does not appear, you may need to load a specific module using the following command:
 
-### 6. **Verificar el comportamiento en el dispositivo**
-Una vez que hayas hecho todas las configuraciones, puedes verificar si el dispositivo es reconocido correctamente:
+   ```bash
+   modprobe <module-name>
+   ```
 
-- Para **PCIe**:
+### 5. **Configure the port via uBoot or boot configuration**
+- Sometimes, the configuration of how the **M.2** port is used (USB or PCIe) is defined in the **bootloader** or in the boot configuration (like **uBoot**).
+- If you have access to **uBoot**, you may need to configure the port parameters to use it correctly as **PCIe** or **USB**. This is more advanced and depends on the board's model and configuration.
+
+### 6. **Verify the behavior on the device**
+Once you've made all the configurations, you can verify if the device is being recognized correctly:
+
+- For **PCIe**:
   ```bash
-  lspci  # Muestra dispositivos PCIe conectados.
+  lspci  # Shows connected PCIe devices.
   ```
 
-- Para **USB**:
+- For **USB**:
   ```bash
-  lsusb  # Muestra dispositivos USB conectados.
+  lsusb  # Shows connected USB devices.
   ```
 
-Si ves que el dispositivo o módulo está correctamente reconocido en el sistema, probablemente el **PHY** esté funcionando correctamente.
+If you see that the device or module is correctly recognized in the system, the **PHY** is likely functioning properly.
 
-### Conclusión
-En resumen, la configuración del **PHY combinado USB/PCIe** no suele ser algo que se haga manualmente, pero es importante asegurarte de que el **firmware** esté actualizado, que los controladores estén instalados, y que los archivos de configuración del sistema (como los **DTS**) estén configurados correctamente. Si todo está bien, el sistema debería detectar y manejar el dispositivo conectado sin problemas.
+### Conclusion
+In summary, configuring the **combined USB/PCIe PHY** is usually not something done manually, but it is important to ensure that the **firmware** is up to date, the drivers are installed, and the system configuration files (such as the **DTS**) are properly set. If everything is correct, the system should detect and manage the connected device without issues.
