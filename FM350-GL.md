@@ -20,11 +20,11 @@ Here’s a summary of some of the operating points in case anyone needs them, an
 ### 2. Prepare the Compilation Environment
 
 - Use **Ubuntu 24.04.3 Server**.
-- Follow OpenWrt’s toolchain installation guide: [OpenWrt Toolchain](https://openwrt.org).
+- Follow OpenWrt’s toolchain installation guide: [OpenWrt Toolchain](https://openwrt.org/docs/guide-developer/toolchain/install-buildsystem).
 
 ### 3. Pull Source Code
 
-- Follow the OpenWrt build system guide: [OpenWrt Build System](https://openwrt.org).
+- Follow the OpenWrt build system guide: [OpenWrt Build System](https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem).
 
 ### 4. Configure Build Options
 
