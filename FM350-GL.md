@@ -1,5 +1,3 @@
----
-
 # FM350-GL and BE14 finally works on BPI-R4
 
 **Author:** OtakuNekoP (Leo Xu)  
