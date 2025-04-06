@@ -2,7 +2,7 @@
 +-------------------------------------------------+
 |               [ BL1 - BootROM ]                 |
 |    (Burned into hardware, immutable code)       |
-|   - Detects boot medium (SD/eMMC/NAND)            |
+|   - Detects boot medium (SD/eMMC/NAND)          |
 |   - Loads BL2                                   |
 +------------------------|------------------------+
                          v
@@ -25,9 +25,9 @@
                          v
 +-------------------------------------------------+
 |          [ BL33 - uBoot Bootloader ]            |
-|   - Locates the kernel (OpenWRT/Ubuntu/etc.)      |
+|   - Locates the kernel (OpenWRT/Ubuntu/etc.)    |
 |   - Loads the operating system image            |
-|   - Jumps to the kernel's start                  |
+|   - Jumps to the kernel's start                 |
 +------------------------|------------------------+
                          v
 +-------------------------------------------------+
